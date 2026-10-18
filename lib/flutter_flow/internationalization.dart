@@ -1024,10 +1024,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'gr3nz7pv': {
       'ar': 'العربية',
-      'en': 'Arabic',
+      'en': 'العربية',
     },
     'cz1fs2j3': {
-      'ar': 'الإنجليزية',
+      'ar': 'English',
       'en': 'English',
     },
     'gqjbgcx6': {
