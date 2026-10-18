@@ -69,7 +69,8 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                     fit: BoxFit.contain,
                   ),
                 ),
-                Flexible(
+                SizedBox(
+                  height: 36.0,
                   child: Text(
                     FFLocalizations.of(context).getText(
                       'kiijsrj0' /* السوريين في قبرص */,
@@ -291,7 +292,7 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                                               gridViewCategoriesRow.imageUrl!),
                                           gridViewCategoriesRow.imageUrl!,
                                           width: 200.0,
-                                          height: 110.0,
+                                          height: 90.0,
                                           fit: BoxFit.contain,
                                         ),
                                       ),
