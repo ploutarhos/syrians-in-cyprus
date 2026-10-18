@@ -56,7 +56,8 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
           bottom: false,
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-            child: Column(
+            child: SingleChildScrollView(
+              child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -203,8 +204,8 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                     ],
                   ),
                 ),
-                Flexible(
-                  flex: 6,
+                SizedBox(
+                  height: 190.0,
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
@@ -572,6 +573,7 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                 ),
               ],
             ),
+          ),
           ),
         ),
       ),
