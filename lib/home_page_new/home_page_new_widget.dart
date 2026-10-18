@@ -48,7 +48,7 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFF9CF4B9),
+        backgroundColor: Color(0xFFB8E6E3),
         body: SafeArea(
           left: false,
           top: true,
@@ -279,7 +279,7 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                                   width: 100.0,
                                   height: 100.0,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFFC2FFD9),
+                                    color: Color(0xFFD9F2F0),
                                     borderRadius: BorderRadius.circular(16.0),
                                   ),
                                   child: Column(
