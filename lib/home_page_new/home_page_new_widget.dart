@@ -51,11 +51,11 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
         backgroundColor: Color(0xFF9CF4B9),
         body: SafeArea(
           left: false,
-          top: false,
+          top: true,
           right: false,
           bottom: false,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 60.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -70,7 +70,7 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                   ),
                 ),
                 SizedBox(
-                  height: 36.0,
+                  height: 44.0,
                   child: Text(
                     FFLocalizations.of(context).getText(
                       'kiijsrj0' /* السوريين في قبرص */,
@@ -292,7 +292,7 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                                               gridViewCategoriesRow.imageUrl!),
                                           gridViewCategoriesRow.imageUrl!,
                                           width: 200.0,
-                                          height: 90.0,
+                                          height: 110.0,
                                           fit: BoxFit.contain,
                                         ),
                                       ),
