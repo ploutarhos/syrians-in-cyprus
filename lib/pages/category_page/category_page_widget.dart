@@ -55,7 +55,7 @@ class _CategoryPageWidgetState extends State<CategoryPageWidget> {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
           return Scaffold(
-            backgroundColor: Color(0xFF9CF4B9),
+            backgroundColor: Color(0xFFB8E6E3),
             body: Center(
               child: SizedBox(
                 width: 50.0,
@@ -83,7 +83,7 @@ class _CategoryPageWidgetState extends State<CategoryPageWidget> {
           },
           child: Scaffold(
             key: scaffoldKey,
-            backgroundColor: Color(0xFF9CF4B9),
+            backgroundColor: Color(0xFFB8E6E3),
             appBar: AppBar(
               backgroundColor: FlutterFlowTheme.of(context).success,
               automaticallyImplyLeading: true,

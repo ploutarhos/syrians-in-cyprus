@@ -58,7 +58,7 @@ class _SearchPageWidgetState extends State<SearchPageWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFF9CF4B9),
+        backgroundColor: Color(0xFFB8E6E3),
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).success,
           automaticallyImplyLeading: false,
