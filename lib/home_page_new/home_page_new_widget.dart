@@ -532,7 +532,10 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                   builder: (context) => FFButtonWidget(
                     onPressed: () async {
                       await Share.share(
-                        'Syrians in Cyprus 🇨🇾  Useful information, contacts and services for Syrians in Cyprus.  معلومات وخدمات وجهات اتصال مفيدة للسوريين في قبرص.',
+                        'Syrians in Cyprus 🇨🇾\n\n'
+                        'Useful information, contacts and services for Syrians in Cyprus.\n\n'
+                        'معلومات وخدمات وجهات اتصال مفيدة للسوريين في قبرص.\n\n'
+                        'https://ploutarhos.github.io/syrians-in-cyprus/',
                         sharePositionOrigin: getWidgetBoundingBox(context),
                       );
                     },
