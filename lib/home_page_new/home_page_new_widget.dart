@@ -205,7 +205,7 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                   ),
                 ),
                 SizedBox(
-                  height: 190.0,
+                  height: 380.0,
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
