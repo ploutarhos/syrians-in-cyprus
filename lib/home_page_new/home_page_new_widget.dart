@@ -205,7 +205,12 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                   ),
                 ),
                 SizedBox(
-                  height: 380.0,
+                  width: MediaQuery.sizeOf(context).width >= 900.0
+                    ? 1200.0
+                    : double.infinity,
+                  height: MediaQuery.sizeOf(context).width >= 900.0
+                    ? 310.0
+                    : 380.0,
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
@@ -241,7 +246,8 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                           padding: EdgeInsets.zero,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
+                            crossAxisCount:
+                            MediaQuery.sizeOf(context).width >= 900.0 ? 4 : 2,
                             crossAxisSpacing: 12.0,
                             mainAxisSpacing: 5.0,
                             childAspectRatio: 1.0,
