@@ -1,4 +1,4 @@
-package com.mycompany.syriansincyprus
+package com.ploutarhos.syriansincyprus
 
 import io.flutter.embedding.android.FlutterActivity
 
