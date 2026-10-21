@@ -576,6 +576,33 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      await launchURL(
+                        'https://ploutarhos.github.io/syrians-in-cyprus/privacy.html',
+                      );
+                    },
+                    child: Text(
+                      FFLocalizations.of(context).languageCode == 'ar'
+                          ? 'سياسة الخصوصية'
+                          : 'Privacy Policy',
+                      textAlign: TextAlign.center,
+                      style: FlutterFlowTheme.of(context).bodySmall.override(
+                            font: GoogleFonts.inter(),
+                            color:
+                                FlutterFlowTheme.of(context).secondaryText,
+                            letterSpacing: 0.0,
+                            decoration: TextDecoration.underline,
+                          ),
+                    ),
+                  ),
+                ),
                 Divider(
                   thickness: 2.0,
                   color: FlutterFlowTheme.of(context).alternate,
