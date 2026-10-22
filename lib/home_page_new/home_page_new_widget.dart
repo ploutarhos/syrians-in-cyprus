@@ -607,6 +607,9 @@ class _HomePageNewWidgetState extends State<HomePageNewWidget> {
                   thickness: 2.0,
                   color: FlutterFlowTheme.of(context).alternate,
                 ),
+                SizedBox(
+                  height: MediaQuery.viewPaddingOf(context).bottom + 16.0,
+                  ),
               ],
             ),
           ),
