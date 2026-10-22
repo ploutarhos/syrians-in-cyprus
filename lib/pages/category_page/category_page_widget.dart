@@ -49,7 +49,10 @@ class _CategoryPageWidgetState extends State<CategoryPageWidget> {
   Widget build(BuildContext context) {
     return FutureBuilder<List<CategoriesRow>>(
       future: CategoriesTable().querySingleRow(
-        queryFn: (q) => q,
+        queryFn: (q) => q.eqOrNull(
+          'id',
+          widget.categoryId,
+        ),
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
