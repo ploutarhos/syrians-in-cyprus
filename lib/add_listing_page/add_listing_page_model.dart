@@ -28,6 +28,8 @@ class AddListingPageModel extends FlutterFlowModel<AddListingPageWidget> {
 
   String? currentUserId;
 
+  bool marketplaceRulesAccepted = false;
+
   ///  State fields for stateful widgets in this page.
 
   final formKey1 = GlobalKey<FormState>();
