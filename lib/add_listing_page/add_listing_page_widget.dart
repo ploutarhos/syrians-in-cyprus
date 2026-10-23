@@ -800,7 +800,7 @@ class _AddListingPageWidgetState extends State<AddListingPageWidget> {
                     ),
                   ),
                 ),
-                if (_model.listingType == 'car') &&
+                if ((_model.listingType == 'car') &&
                     (_model.listingIntent != ''))
                   Padding(
                     padding:
