@@ -31,17 +31,199 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, () => ListingDetailPageModel());
-  }
-
-  @override
+    @override
   void dispose() {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _showReportListingDialog(String? listingId) async {
+    if (listingId == null || listingId.isEmpty) {
+      return;
+    }
+
+    final isArabic =
+        FFLocalizations.of(context).languageCode == 'ar';
+
+    String selectedReason = 'fraud';
+    final detailsController = TextEditingController();
+    bool isSubmitting = false;
+    String? errorMessage;
+
+    await showDialog<void>(
+      context: context,
+      builder: (dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            final reasons = <String, String>{
+              'fraud': isArabic
+                  ? 'احتيال أو معلومات مضللة'
+                  : 'Fraud or misleading information',
+              'inappropriate': isArabic
+                  ? 'محتوى غير لائق أو محظور'
+                  : 'Inappropriate or prohibited content',
+              'incorrect_contact': isArabic
+                  ? 'معلومات اتصال غير صحيحة'
+                  : 'Incorrect contact details',
+              'unavailable': isArabic
+                  ? 'الإعلان لم يعد متاحاً'
+                  : 'Listing no longer available',
+              'other': isArabic ? 'سبب آخر' : 'Other',
+            };
+
+            return AlertDialog(
+              title: Text(
+                isArabic ? 'الإبلاغ عن الإعلان' : 'Report listing',
+                textAlign:
+                    isArabic ? TextAlign.right : TextAlign.left,
+              ),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      isArabic
+                          ? 'اختر سبب الإبلاغ. سيتم مراجعة الإعلان.'
+                          : 'Select a reason. The listing will be reviewed.',
+                      textAlign:
+                          isArabic ? TextAlign.right : TextAlign.left,
+                    ),
+                    const SizedBox(height: 16.0),
+                    DropdownButtonFormField<String>(
+                      value: selectedReason,
+                      isExpanded: true,
+                      decoration: InputDecoration(
+                        labelText: isArabic ? 'السبب' : 'Reason',
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: reasons.entries
+                          .map(
+                            (entry) => DropdownMenuItem<String>(
+                              value: entry.key,
+                              child: Text(entry.value),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: isSubmitting
+                          ? null
+                          : (value) {
+                              if (value != null) {
+                                setDialogState(() {
+                                  selectedReason = value;
+                                });
+                              }
+                            },
+                    ),
+                    const SizedBox(height: 16.0),
+                    TextField(
+                      controller: detailsController,
+                      enabled: !isSubmitting,
+                      maxLines: 4,
+                      maxLength: 500,
+                      textAlign:
+                          isArabic ? TextAlign.right : TextAlign.left,
+                      decoration: InputDecoration(
+                        labelText: isArabic
+                            ? 'تفاصيل إضافية (اختياري)'
+                            : 'Additional details (optional)',
+                        border: const OutlineInputBorder(),
+                      ),
+                    ),
+                    if (errorMessage != null) ...[
+                      const SizedBox(height: 8.0),
+                      Text(
+                        errorMessage!,
+                        style: const TextStyle(color: Colors.red),
+                        textAlign:
+                            isArabic ? TextAlign.right : TextAlign.left,
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: isSubmitting
+                      ? null
+                      : () => Navigator.pop(dialogContext),
+                  child: Text(isArabic ? 'إلغاء' : 'Cancel'),
+                ),
+                FilledButton(
+                  onPressed: isSubmitting
+                      ? null
+                      : () async {
+                          setDialogState(() {
+                            isSubmitting = true;
+                            errorMessage = null;
+                          });
+
+                          try {
+                            await SupaFlow.client
+                                .from('listing_reports')
+                                .insert({
+                              'listing_id': listingId,
+                              'reason': selectedReason,
+                              'details':
+                                  detailsController.text.trim().isEmpty
+                                      ? null
+                                      : detailsController.text.trim(),
+                            });
+
+                            if (dialogContext.mounted) {
+                              Navigator.pop(dialogContext);
+                            }
+
+                            if (mounted) {
+                              ScaffoldMessenger.of(this.context)
+                                  .showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    isArabic
+                                        ? 'شكراً. تم إرسال البلاغ للمراجعة.'
+                                        : 'Thank you. The listing has been reported for review.',
+                                  ),
+                                ),
+                              );
+                            }
+                          } catch (error) {
+                            final duplicate =
+                                error.toString().contains('23505');
+
+                            setDialogState(() {
+                              isSubmitting = false;
+                              errorMessage = duplicate
+                                  ? (isArabic
+                                      ? 'لقد أبلغت عن هذا الإعلان مسبقاً.'
+                                      : 'You have already reported this listing.')
+                                  : (isArabic
+                                      ? 'تعذر إرسال البلاغ. حاول مرة أخرى.'
+                                      : 'The report could not be submitted. Please try again.');
+                            });
+                          }
+                        },
+                  child: isSubmitting
+                      ? const SizedBox(
+                          width: 18.0,
+                          height: 18.0,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.0,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(
+                          isArabic ? 'إرسال البلاغ' : 'Submit report',
+                        ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+
+    detailsController.dispose();
   }
 
   @override
@@ -132,10 +314,10 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
             ),
             body: SafeArea(
               top: true,
-              child: Padding(
+              child: SingleChildScrollView(
                 padding: EdgeInsets.all(16.0),
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -480,7 +662,40 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
-                      ].divide(SizedBox(width: 10.0)),
+                                           ].divide(SizedBox(width: 10.0)),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: () async {
+                          await _showReportListingDialog(
+                            widget.listingId,
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.flag_outlined,
+                          size: 20.0,
+                        ),
+                        label: Text(
+                          FFLocalizations.of(context).languageCode == 'ar'
+                              ? 'الإبلاغ عن الإعلان'
+                              : 'Report listing',
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: const Color(0xFFB3261E),
+                          side: const BorderSide(
+                            color: Color(0xFFB3261E),
+                            width: 1.0,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12.0,
+                            horizontal: 16.0,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
                     ),
                   ].divide(SizedBox(height: 8.0)),
                 ),
