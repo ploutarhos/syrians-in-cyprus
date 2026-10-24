@@ -8,6 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'contact_detail_page_model.dart';
 export 'contact_detail_page_model.dart';
 
@@ -155,7 +156,48 @@ class _ContactDetailPageWidgetState extends State<ContactDetailPageWidget> {
                       ),
                 ),
               ),
-              actions: [],
+              actions: [
+                Builder(
+                  builder: (shareContext) => IconButton(
+                    tooltip: FFLocalizations.of(context).languageCode == 'ar'
+                        ? 'مشاركة جهة الاتصال'
+                        : 'Share contact',
+                    icon: const Icon(
+                      Icons.share,
+                      color: Colors.white,
+                    ),
+                    onPressed: () async {
+                      final contactId = widget.contactId;
+                      if (contactId == null || contactId.isEmpty) {
+                        return;
+                      }
+                      final isArabic =
+                          FFLocalizations.of(context).languageCode == 'ar';
+                      final contactName = isArabic
+                          ? (contactDetailPageContactsRow?.nameAr ?? '')
+                          : (contactDetailPageContactsRow?.nameEn ?? '');
+                      final shareUrl =
+                          'https://ploutarhos.github.io/syrians-in-cyprus/#/contactDetailPage?contactId=' +
+                              Uri.encodeQueryComponent(contactId);
+                      await Share.share(
+                        (isArabic
+                                ? 'شاهد بيانات جهة الاتصال في تطبيق السوريين في قبرص'
+                                : 'View this contact in the Syrians in Cyprus app') +
+                            '
+
+' +
+                            contactName +
+                            '
+
+' +
+                            shareUrl,
+                        sharePositionOrigin:
+                            getWidgetBoundingBox(shareContext),
+                      );
+                    },
+                  ),
+                ),
+              ],
               centerTitle: false,
               elevation: 2.0,
             ),
