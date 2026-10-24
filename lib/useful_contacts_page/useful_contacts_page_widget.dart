@@ -13,6 +13,12 @@ import 'package:share_plus/share_plus.dart';
 import 'useful_contacts_page_model.dart';
 export 'useful_contacts_page_model.dart';
 
+// Preserve numeric reading order in Arabic text without changing stored values.
+String _isolateNumbers(String text) => text.replaceAllMapped(
+  RegExp(r'\+?[0-9٠-٩۰-۹]+(?:[ \t\u00A0.:/()–—-]+[0-9٠-٩۰-۹]+)*'),
+  (match) => '\u2066${match.group(0)}\u2069',
+);
+
 class UsefulContactsPageWidget extends StatefulWidget {
   const UsefulContactsPageWidget({super.key});
 
@@ -545,7 +551,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                           FFLocalizations.of(context)
                                                       .languageCode ==
                                                   'ar'
-                                              ? listViewContactsRow.notesAr
+                                              ? _isolateNumbers(listViewContactsRow.notesAr ?? '')
                                               : listViewContactsRow.notesEn,
                                           'null',
                                         ),
@@ -634,7 +640,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                                                             leading:
                                                                                 const Icon(Icons.phone),
                                                                             title:
-                                                                                Text(number),
+                                                                                Text(number, textDirection: TextDirection.ltr),
                                                                             onTap: () =>
                                                                                 Navigator.pop(dialogContext, number),
                                                                           ),
