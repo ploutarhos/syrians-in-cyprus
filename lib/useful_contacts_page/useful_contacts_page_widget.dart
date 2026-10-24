@@ -957,7 +957,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                               final shareUrl =
                                                   'https://ploutarhos.github.io/syrians-in-cyprus/#/contactDetailPage?contactId=' +
                                                       Uri.encodeQueryComponent(
-                                                          listViewContactsRow.id);
+                                                          listViewContactsRow.id ?? '');
                                               await Share.share(
                                                 (isArabic
                                                         ? 'شاهد بيانات جهة الاتصال في تطبيق السوريين في قبرص'
