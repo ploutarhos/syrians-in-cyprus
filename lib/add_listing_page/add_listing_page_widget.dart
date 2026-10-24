@@ -4619,7 +4619,9 @@ class _AddListingPageWidgetState extends State<AddListingPageWidget> {
                       ),
                     ),
                   ),
-                if (_model.listingType == 'accommodation')
+                if ((_model.listingType == 'accommodation') &&
+                    ((_model.listingIntent == 'offer') ||
+                        (_model.listingIntent == 'wanted')))
                   Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 4.0),
