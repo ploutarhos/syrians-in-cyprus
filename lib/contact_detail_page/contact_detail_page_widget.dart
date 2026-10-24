@@ -12,6 +12,12 @@ import 'package:share_plus/share_plus.dart';
 import 'contact_detail_page_model.dart';
 export 'contact_detail_page_model.dart';
 
+// Preserve numeric reading order in Arabic text without changing stored values.
+String _isolateNumbers(String text) => text.replaceAllMapped(
+  RegExp(r'\+?[0-9٠-٩۰-۹]+(?:[ \t\u00A0.:/()–—-]+[0-9٠-٩۰-۹]+)*'),
+  (match) => '\u2066${match.group(0)}\u2069',
+);
+
 class ContactDetailPageWidget extends StatefulWidget {
   const ContactDetailPageWidget({
     super.key,
@@ -260,7 +266,7 @@ class _ContactDetailPageWidgetState extends State<ContactDetailPageWidget> {
                       Text(
                         valueOrDefault<String>(
                           FFLocalizations.of(context).languageCode == 'ar'
-                              ? contactDetailPageContactsRow?.notesAr
+                              ? _isolateNumbers(contactDetailPageContactsRow?.notesAr ?? '')
                               : contactDetailPageContactsRow?.notesEn,
                           '\"\"',
                         ),
@@ -334,7 +340,7 @@ class _ContactDetailPageWidgetState extends State<ContactDetailPageWidget> {
                                                   (number) => ListTile(
                                                     leading: const Icon(
                                                         Icons.phone),
-                                                    title: Text(number),
+                                                    title: Text(number, textDirection: TextDirection.ltr),
                                                     onTap: () => Navigator.pop(
                                                         dialogContext, number),
                                                   ),
