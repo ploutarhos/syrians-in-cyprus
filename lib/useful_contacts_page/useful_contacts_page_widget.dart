@@ -9,6 +9,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'useful_contacts_page_model.dart';
 export 'useful_contacts_page_model.dart';
 
@@ -940,6 +941,72 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                                   BorderRadius.circular(8.0),
                                             ),
                                           ),
+                                        Builder(
+                                          builder: (shareContext) =>
+                                              FFButtonWidget(
+                                            onPressed: () async {
+                                              final isArabic =
+                                                  FFLocalizations.of(context)
+                                                          .languageCode ==
+                                                      'ar';
+                                              final contactName = isArabic
+                                                  ? (listViewContactsRow.nameAr ??
+                                                      '')
+                                                  : (listViewContactsRow.nameEn ??
+                                                      '');
+                                              final shareUrl =
+                                                  'https://ploutarhos.github.io/syrians-in-cyprus/#/contactDetailPage?contactId=' +
+                                                      Uri.encodeQueryComponent(
+                                                          listViewContactsRow.id);
+                                              await Share.share(
+                                                (isArabic
+                                                        ? 'شاهد بيانات جهة الاتصال في تطبيق السوريين في قبرص'
+                                                        : 'View this contact in the Syrians in Cyprus app') +
+                                                    '\n\n' +
+                                                    contactName +
+                                                    '\n\n' +
+                                                    shareUrl,
+                                                sharePositionOrigin:
+                                                    getWidgetBoundingBox(
+                                                        shareContext),
+                                              );
+                                            },
+                                            text: FFLocalizations.of(context)
+                                                        .languageCode ==
+                                                    'ar'
+                                                ? 'مشاركة'
+                                                : 'Share',
+                                            icon: const Icon(
+                                              Icons.share,
+                                              size: 18.0,
+                                            ),
+                                            options: FFButtonOptions(
+                                              height: 40.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 0.0, 16.0, 0.0),
+                                              iconPadding:
+                                                  EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 6.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font:
+                                                        GoogleFonts.interTight(),
+                                                    color: Colors.white,
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                              elevation: 0.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],
