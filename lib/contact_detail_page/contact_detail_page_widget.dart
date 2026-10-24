@@ -183,13 +183,9 @@ class _ContactDetailPageWidgetState extends State<ContactDetailPageWidget> {
                         (isArabic
                                 ? 'شاهد بيانات جهة الاتصال في تطبيق السوريين في قبرص'
                                 : 'View this contact in the Syrians in Cyprus app') +
-                            '
-
-' +
+                            '\n\n' +
                             contactName +
-                            '
-
-' +
+                            '\n\n' +
                             shareUrl,
                         sharePositionOrigin:
                             getWidgetBoundingBox(shareContext),
