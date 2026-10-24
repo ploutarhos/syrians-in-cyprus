@@ -7,6 +7,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'listing_detail_page_model.dart';
 export 'listing_detail_page_model.dart';
 
@@ -308,7 +309,47 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                           FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                     ),
               ),
-              actions: [],
+              actions: [
+                Builder(
+                  builder: (shareContext) => IconButton(
+                    tooltip: FFLocalizations.of(context).languageCode == 'ar'
+                        ? 'مشاركة الإعلان'
+                        : 'Share listing',
+                    icon: const Icon(
+                      Icons.share,
+                      color: Colors.white,
+                    ),
+                    onPressed: () async {
+                      final listingId = widget.listingId;
+                      if (listingId == null || listingId.isEmpty) {
+                        return;
+                      }
+                      final isArabic =
+                          FFLocalizations.of(context).languageCode == 'ar';
+                      final listingTitle =
+                          listingDetailPageListingsRow?.title ?? '';
+                      final shareUrl =
+                          'https://ploutarhos.github.io/syrians-in-cyprus/#/listingDetailPage?listingId=' +
+                              Uri.encodeQueryComponent(listingId);
+                      await Share.share(
+                        (isArabic
+                                ? 'شاهد هذا الإعلان في تطبيق السوريين في قبرص'
+                                : 'View this listing in the Syrians in Cyprus app') +
+                            '
+
+' +
+                            listingTitle +
+                            '
+
+' +
+                            shareUrl,
+                        sharePositionOrigin:
+                            getWidgetBoundingBox(shareContext),
+                      );
+                    },
+                  ),
+                ),
+              ],
               centerTitle: false,
               elevation: 2.0,
             ),
