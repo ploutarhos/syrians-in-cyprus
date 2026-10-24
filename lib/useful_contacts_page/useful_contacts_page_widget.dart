@@ -588,8 +588,79 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                             listViewContactsRow.phone != '')
                                           FFButtonWidget(
                                             onPressed: () async {
-                                              await launchURL(
-                                                  'tel:${listViewContactsRow.phone}');
+                                              final rawPhone =
+                                                  listViewContactsRow.phone;
+                                              final phoneNumbers = rawPhone
+                                                  .split(RegExp(r'[/,;]'))
+                                                  .map((number) => number.trim())
+                                                  .where((number) =>
+                                                      number.isNotEmpty)
+                                                  .toList();
+
+                                              if (phoneNumbers.isEmpty) {
+                                                return;
+                                              }
+
+                                              final selectedPhone =
+                                                  phoneNumbers.length == 1
+                                                      ? phoneNumbers.first
+                                                      : await showDialog<String>(
+                                                          context: context,
+                                                          builder:
+                                                              (dialogContext) {
+                                                            final isArabic =
+                                                                FFLocalizations.of(
+                                                                            context)
+                                                                        .languageCode ==
+                                                                    'ar';
+                                                            return AlertDialog(
+                                                              title: Text(
+                                                                isArabic
+                                                                    ? 'اختر رقم الهاتف'
+                                                                    : 'Choose a phone number',
+                                                                textAlign: isArabic
+                                                                    ? TextAlign.right
+                                                                    : TextAlign.left,
+                                                              ),
+                                                              content: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize.min,
+                                                                children:
+                                                                    phoneNumbers
+                                                                        .map(
+                                                                          (number) =>
+                                                                              ListTile(
+                                                                            leading:
+                                                                                const Icon(Icons.phone),
+                                                                            title:
+                                                                                Text(number),
+                                                                            onTap: () =>
+                                                                                Navigator.pop(dialogContext, number),
+                                                                          ),
+                                                                        )
+                                                                        .toList(),
+                                                              ),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          dialogContext),
+                                                                  child: Text(
+                                                                    isArabic
+                                                                        ? 'إلغاء'
+                                                                        : 'Cancel',
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+
+                                              if (selectedPhone != null) {
+                                                await launchURL(
+                                                  'tel:${selectedPhone.replaceAll(RegExp(r'\s+'), '')}',
+                                                );
+                                              }
                                             },
                                             text: FFLocalizations.of(context)
                                                 .getText(
