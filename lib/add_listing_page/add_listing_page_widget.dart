@@ -690,116 +690,6 @@ class _AddListingPageWidgetState extends State<AddListingPageWidget> {
                                             ].divide(SizedBox(width: 24.0)),
                     ),
                   ),
-                Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 4.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: FlutterFlowTheme.of(context).alternate,
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CheckboxListTile(
-                          value: _model.marketplaceRulesAccepted,
-                          onChanged: (newValue) async {
-                            safeSetState(() {
-                              _model.marketplaceRulesAccepted =
-                                  newValue ?? false;
-                            });
-                          },
-                          title: Text(
-                            FFLocalizations.of(context).languageCode == 'ar'
-                                ? 'أؤكد أن معلومات الإعلان صحيحة وقانونية، وأوافق على قواعد السوق.'
-                                : 'I confirm that this listing is accurate and lawful, and I accept the Marketplace Rules.',
-                            textAlign:
-                                FFLocalizations.of(context).languageCode == 'ar'
-                                    ? TextAlign.right
-                                    : TextAlign.left,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  font: GoogleFonts.inter(),
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
-                          activeColor:
-                              FlutterFlowTheme.of(context).primary,
-                          checkColor: Colors.white,
-                          controlAffinity:
-                              ListTileControlAffinity.leading,
-                          contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 4.0, 8.0, 0.0),
-                        ),
-                        TextButton.icon(
-                          onPressed: () async {
-                            final isArabic =
-                                FFLocalizations.of(context).languageCode ==
-                                    'ar';
-
-                            await showDialog<void>(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text(
-                                    isArabic
-                                        ? 'قواعد السوق'
-                                        : 'Marketplace Rules',
-                                    textAlign: isArabic
-                                        ? TextAlign.right
-                                        : TextAlign.left,
-                                  ),
-                                  content: SingleChildScrollView(
-                                    child: Text(
-                                      isArabic
-                                          ? '• يجب أن تكون جميع معلومات الإعلان صحيحة وغير مضللة.\n\n'
-                                              '• يُمنع نشر السلع أو الخدمات غير القانونية أو المحظورة.\n\n'
-                                              '• يُمنع المحتوى المسيء أو التمييزي أو الجنسي أو الذي يتضمن تهديدات أو مضايقات.\n\n'
-                                              '• يجب أن تكون مالكاً للصور والمحتوى أو أن يكون لديك الحق في استخدامها.\n\n'
-                                              '• سيتم نشر معلومات الاتصال التي تقدمها مع الإعلان.\n\n'
-                                              '• تتم مراجعة الإعلانات قبل نشرها، ويحق للإدارة رفض أو تعديل أو إزالة أي إعلان يخالف هذه القواعد.\n\n'
-                                              '• يمكن للمستخدمين الإبلاغ عن الإعلانات، وسيتم النظر في البلاغات واتخاذ الإجراء المناسب.'
-                                          : '• All listing information must be accurate and must not be misleading.\n\n'
-                                              '• Illegal or prohibited goods and services must not be advertised.\n\n'
-                                              '• Abusive, discriminatory, sexual, threatening or harassing content is prohibited.\n\n'
-                                              '• You must own the photographs and content or have permission to use them.\n\n'
-                                              '• The contact information you provide will be published with the listing.\n\n'
-                                              '• Listings are reviewed before publication. The administrator may reject, edit or remove any listing that violates these rules.\n\n'
-                                              '• Users may report listings. Reports will be reviewed and appropriate action may be taken.',
-                                      textAlign: isArabic
-                                          ? TextAlign.right
-                                          : TextAlign.left,
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text(
-                                        isArabic ? 'موافق' : 'OK',
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          icon: const Icon(Icons.info_outline),
-                          label: Text(
-                            FFLocalizations.of(context).languageCode == 'ar'
-                                ? 'قراءة قواعد السوق'
-                                : 'Read Marketplace Rules',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
                 if ((_model.listingType == 'car') &&
                     (_model.listingIntent != ''))
                   Padding(
@@ -4475,6 +4365,117 @@ class _AddListingPageWidgetState extends State<AddListingPageWidget> {
                   ),
                 if (_model.listingType == 'car')
                   Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 4.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).alternate,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CheckboxListTile(
+                            value: _model.marketplaceRulesAccepted,
+                            onChanged: (newValue) async {
+                              safeSetState(() {
+                                _model.marketplaceRulesAccepted =
+                                    newValue ?? false;
+                              });
+                            },
+                            title: Text(
+                              FFLocalizations.of(context).languageCode == 'ar'
+                                  ? 'أؤكد أن معلومات الإعلان صحيحة وقانونية، وأوافق على قواعد السوق.'
+                                  : 'I confirm that this listing is accurate and lawful, and I accept the Marketplace Rules.',
+                              textAlign:
+                                  FFLocalizations.of(context).languageCode == 'ar'
+                                      ? TextAlign.right
+                                      : TextAlign.left,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.inter(),
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                            activeColor:
+                                FlutterFlowTheme.of(context).primary,
+                            checkColor: Colors.white,
+                            controlAffinity:
+                                ListTileControlAffinity.leading,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 4.0, 8.0, 0.0),
+                          ),
+                          TextButton.icon(
+                            onPressed: () async {
+                              final isArabic =
+                                  FFLocalizations.of(context).languageCode ==
+                                      'ar';
+  
+                              await showDialog<void>(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      isArabic
+                                          ? 'قواعد السوق'
+                                          : 'Marketplace Rules',
+                                      textAlign: isArabic
+                                          ? TextAlign.right
+                                          : TextAlign.left,
+                                    ),
+                                    content: SingleChildScrollView(
+                                      child: Text(
+                                        isArabic
+                                            ? '• يجب أن تكون جميع معلومات الإعلان صحيحة وغير مضللة.\n\n'
+                                                '• يُمنع نشر السلع أو الخدمات غير القانونية أو المحظورة.\n\n'
+                                                '• يُمنع المحتوى المسيء أو التمييزي أو الجنسي أو الذي يتضمن تهديدات أو مضايقات.\n\n'
+                                                '• يجب أن تكون مالكاً للصور والمحتوى أو أن يكون لديك الحق في استخدامها.\n\n'
+                                                '• سيتم نشر معلومات الاتصال التي تقدمها مع الإعلان.\n\n'
+                                                '• تتم مراجعة الإعلانات قبل نشرها، ويحق للإدارة رفض أو تعديل أو إزالة أي إعلان يخالف هذه القواعد.\n\n'
+                                                '• يمكن للمستخدمين الإبلاغ عن الإعلانات، وسيتم النظر في البلاغات واتخاذ الإجراء المناسب.'
+                                            : '• All listing information must be accurate and must not be misleading.\n\n'
+                                                '• Illegal or prohibited goods and services must not be advertised.\n\n'
+                                                '• Abusive, discriminatory, sexual, threatening or harassing content is prohibited.\n\n'
+                                                '• You must own the photographs and content or have permission to use them.\n\n'
+                                                '• The contact information you provide will be published with the listing.\n\n'
+                                                '• Listings are reviewed before publication. The administrator may reject, edit or remove any listing that violates these rules.\n\n'
+                                                '• Users may report listings. Reports will be reviewed and appropriate action may be taken.',
+                                        textAlign: isArabic
+                                            ? TextAlign.right
+                                            : TextAlign.left,
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text(
+                                          isArabic ? 'موافق' : 'OK',
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            icon: const Icon(Icons.info_outline),
+                            label: Text(
+                              FFLocalizations.of(context).languageCode == 'ar'
+                                  ? 'قراءة قواعد السوق'
+                                  : 'Read Marketplace Rules',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (_model.listingType == 'car')
+                  Padding(
                     padding: EdgeInsets.all(12.0),
                     child: FFButtonWidget(
                                             onPressed: () async {
@@ -4618,7 +4619,118 @@ class _AddListingPageWidgetState extends State<AddListingPageWidget> {
                       ),
                     ),
                   ),
-                if ((_model.listingType == 'accommodation') &&
+                if (_model.listingType == 'accommodation')
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 4.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).alternate,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CheckboxListTile(
+                            value: _model.marketplaceRulesAccepted,
+                            onChanged: (newValue) async {
+                              safeSetState(() {
+                                _model.marketplaceRulesAccepted =
+                                    newValue ?? false;
+                              });
+                            },
+                            title: Text(
+                              FFLocalizations.of(context).languageCode == 'ar'
+                                  ? 'أؤكد أن معلومات الإعلان صحيحة وقانونية، وأوافق على قواعد السوق.'
+                                  : 'I confirm that this listing is accurate and lawful, and I accept the Marketplace Rules.',
+                              textAlign:
+                                  FFLocalizations.of(context).languageCode == 'ar'
+                                      ? TextAlign.right
+                                      : TextAlign.left,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.inter(),
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                            activeColor:
+                                FlutterFlowTheme.of(context).primary,
+                            checkColor: Colors.white,
+                            controlAffinity:
+                                ListTileControlAffinity.leading,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 4.0, 8.0, 0.0),
+                          ),
+                          TextButton.icon(
+                            onPressed: () async {
+                              final isArabic =
+                                  FFLocalizations.of(context).languageCode ==
+                                      'ar';
+  
+                              await showDialog<void>(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      isArabic
+                                          ? 'قواعد السوق'
+                                          : 'Marketplace Rules',
+                                      textAlign: isArabic
+                                          ? TextAlign.right
+                                          : TextAlign.left,
+                                    ),
+                                    content: SingleChildScrollView(
+                                      child: Text(
+                                        isArabic
+                                            ? '• يجب أن تكون جميع معلومات الإعلان صحيحة وغير مضللة.\n\n'
+                                                '• يُمنع نشر السلع أو الخدمات غير القانونية أو المحظورة.\n\n'
+                                                '• يُمنع المحتوى المسيء أو التمييزي أو الجنسي أو الذي يتضمن تهديدات أو مضايقات.\n\n'
+                                                '• يجب أن تكون مالكاً للصور والمحتوى أو أن يكون لديك الحق في استخدامها.\n\n'
+                                                '• سيتم نشر معلومات الاتصال التي تقدمها مع الإعلان.\n\n'
+                                                '• تتم مراجعة الإعلانات قبل نشرها، ويحق للإدارة رفض أو تعديل أو إزالة أي إعلان يخالف هذه القواعد.\n\n'
+                                                '• يمكن للمستخدمين الإبلاغ عن الإعلانات، وسيتم النظر في البلاغات واتخاذ الإجراء المناسب.'
+                                            : '• All listing information must be accurate and must not be misleading.\n\n'
+                                                '• Illegal or prohibited goods and services must not be advertised.\n\n'
+                                                '• Abusive, discriminatory, sexual, threatening or harassing content is prohibited.\n\n'
+                                                '• You must own the photographs and content or have permission to use them.\n\n'
+                                                '• The contact information you provide will be published with the listing.\n\n'
+                                                '• Listings are reviewed before publication. The administrator may reject, edit or remove any listing that violates these rules.\n\n'
+                                                '• Users may report listings. Reports will be reviewed and appropriate action may be taken.',
+                                        textAlign: isArabic
+                                            ? TextAlign.right
+                                            : TextAlign.left,
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text(
+                                          isArabic ? 'موافق' : 'OK',
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            icon: const Icon(Icons.info_outline),
+                            label: Text(
+                              FFLocalizations.of(context).languageCode == 'ar'
+                                  ? 'قراءة قواعد السوق'
+                                  : 'Read Marketplace Rules',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if ((_model.listingType == 'accommodation') &&
                     ((_model.listingIntent == 'offer') ||
                         (_model.listingIntent == 'wanted')))
                   Padding(
@@ -4782,6 +4894,117 @@ class _AddListingPageWidgetState extends State<AddListingPageWidget> {
                     ),
                   ),
                 if (_model.listingType == 'item')
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 4.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).alternate,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CheckboxListTile(
+                            value: _model.marketplaceRulesAccepted,
+                            onChanged: (newValue) async {
+                              safeSetState(() {
+                                _model.marketplaceRulesAccepted =
+                                    newValue ?? false;
+                              });
+                            },
+                            title: Text(
+                              FFLocalizations.of(context).languageCode == 'ar'
+                                  ? 'أؤكد أن معلومات الإعلان صحيحة وقانونية، وأوافق على قواعد السوق.'
+                                  : 'I confirm that this listing is accurate and lawful, and I accept the Marketplace Rules.',
+                              textAlign:
+                                  FFLocalizations.of(context).languageCode == 'ar'
+                                      ? TextAlign.right
+                                      : TextAlign.left,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.inter(),
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                            activeColor:
+                                FlutterFlowTheme.of(context).primary,
+                            checkColor: Colors.white,
+                            controlAffinity:
+                                ListTileControlAffinity.leading,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 4.0, 8.0, 0.0),
+                          ),
+                          TextButton.icon(
+                            onPressed: () async {
+                              final isArabic =
+                                  FFLocalizations.of(context).languageCode ==
+                                      'ar';
+  
+                              await showDialog<void>(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      isArabic
+                                          ? 'قواعد السوق'
+                                          : 'Marketplace Rules',
+                                      textAlign: isArabic
+                                          ? TextAlign.right
+                                          : TextAlign.left,
+                                    ),
+                                    content: SingleChildScrollView(
+                                      child: Text(
+                                        isArabic
+                                            ? '• يجب أن تكون جميع معلومات الإعلان صحيحة وغير مضللة.\n\n'
+                                                '• يُمنع نشر السلع أو الخدمات غير القانونية أو المحظورة.\n\n'
+                                                '• يُمنع المحتوى المسيء أو التمييزي أو الجنسي أو الذي يتضمن تهديدات أو مضايقات.\n\n'
+                                                '• يجب أن تكون مالكاً للصور والمحتوى أو أن يكون لديك الحق في استخدامها.\n\n'
+                                                '• سيتم نشر معلومات الاتصال التي تقدمها مع الإعلان.\n\n'
+                                                '• تتم مراجعة الإعلانات قبل نشرها، ويحق للإدارة رفض أو تعديل أو إزالة أي إعلان يخالف هذه القواعد.\n\n'
+                                                '• يمكن للمستخدمين الإبلاغ عن الإعلانات، وسيتم النظر في البلاغات واتخاذ الإجراء المناسب.'
+                                            : '• All listing information must be accurate and must not be misleading.\n\n'
+                                                '• Illegal or prohibited goods and services must not be advertised.\n\n'
+                                                '• Abusive, discriminatory, sexual, threatening or harassing content is prohibited.\n\n'
+                                                '• You must own the photographs and content or have permission to use them.\n\n'
+                                                '• The contact information you provide will be published with the listing.\n\n'
+                                                '• Listings are reviewed before publication. The administrator may reject, edit or remove any listing that violates these rules.\n\n'
+                                                '• Users may report listings. Reports will be reviewed and appropriate action may be taken.',
+                                        textAlign: isArabic
+                                            ? TextAlign.right
+                                            : TextAlign.left,
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text(
+                                          isArabic ? 'موافق' : 'OK',
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            icon: const Icon(Icons.info_outline),
+                            label: Text(
+                              FFLocalizations.of(context).languageCode == 'ar'
+                                  ? 'قراءة قواعد السوق'
+                                  : 'Read Marketplace Rules',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (_model.listingType == 'item')
                   Padding(
                     padding: EdgeInsets.all(12.0),
                     child: FFButtonWidget(
