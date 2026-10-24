@@ -335,13 +335,9 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                         (isArabic
                                 ? 'شاهد هذا الإعلان في تطبيق السوريين في قبرص'
                                 : 'View this listing in the Syrians in Cyprus app') +
-                            '
-
-' +
+                            '\n\n' +
                             listingTitle +
-                            '
-
-' +
+                            '\n\n' +
                             shareUrl,
                         sharePositionOrigin:
                             getWidgetBoundingBox(shareContext),
