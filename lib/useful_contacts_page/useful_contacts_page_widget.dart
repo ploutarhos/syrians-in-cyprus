@@ -589,7 +589,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                           FFButtonWidget(
                                             onPressed: () async {
                                               final rawPhone =
-                                                  listViewContactsRow.phone;
+                                                  listViewContactsRow.phone ?? '';
                                               final phoneNumbers = rawPhone
                                                   .split(RegExp(r'[/,;]'))
                                                   .map((number) => number.trim())
