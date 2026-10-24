@@ -296,11 +296,7 @@ class _ContactDetailPageWidgetState extends State<ContactDetailPageWidget> {
                                                   (number) => ListTile(
                                                     leading: const Icon(
                                                         Icons.phone),
-                                                    title: Text(
-                                                      number,
-                                                      textDirection:
-                                                          TextDirection.ltr,
-                                                    ),
+                                                    title: Text(number),
                                                     onTap: () => Navigator.pop(
                                                         dialogContext, number),
                                                   ),
