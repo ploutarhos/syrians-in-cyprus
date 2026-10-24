@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:ui';
+import 'dart:ui' as ui;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -640,7 +641,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                                                             leading:
                                                                                 const Icon(Icons.phone),
                                                                             title:
-                                                                                Text(number, textDirection: TextDirection.ltr),
+                                                                                Text(number, textDirection: ui.TextDirection.ltr),
                                                                             onTap: () =>
                                                                                 Navigator.pop(dialogContext, number),
                                                                           ),
