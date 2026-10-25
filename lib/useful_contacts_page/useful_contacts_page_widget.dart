@@ -469,6 +469,8 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                   (listViewContactsRow.contactType ==
                                       _model.selectedType),
                               child: Container(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 8.0, 12.0, 8.0),
                                 decoration: BoxDecoration(),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -581,6 +583,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                                       .fontStyle,
                                             ),
                                       ),
+                                    SizedBox(height: 8.0),
                                     Wrap(
                                       spacing: 8.0,
                                       runSpacing: 8.0,
