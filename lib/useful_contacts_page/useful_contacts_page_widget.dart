@@ -205,7 +205,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                   safeSetState(() {});
                 },
                 selectedChipStyle: ChipStyle(
-                  backgroundColor: FlutterFlowTheme.of(context).primary,
+                  backgroundColor: FlutterFlowTheme.of(context).success,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                         font: GoogleFonts.inter(
                           fontWeight: FlutterFlowTheme.of(context)
@@ -351,7 +351,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                   safeSetState(() {});
                 },
                 selectedChipStyle: ChipStyle(
-                  backgroundColor: FlutterFlowTheme.of(context).primary,
+                  backgroundColor: FlutterFlowTheme.of(context).success,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                         font: GoogleFonts.inter(
                           fontWeight: FlutterFlowTheme.of(context)
@@ -469,8 +469,6 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                   (listViewContactsRow.contactType ==
                                       _model.selectedType),
                               child: Container(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 8.0, 12.0, 8.0),
                                 decoration: BoxDecoration(),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -583,7 +581,6 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                                       .fontStyle,
                                             ),
                                       ),
-                                    SizedBox(height: 8.0),
                                     Wrap(
                                       spacing: 8.0,
                                       runSpacing: 8.0,
@@ -686,7 +683,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .success,
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
                                                   .titleSmall
@@ -743,7 +740,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .success,
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
                                                   .titleSmall
@@ -799,7 +796,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .success,
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
                                                   .titleSmall
@@ -858,7 +855,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .success,
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
                                                   .titleSmall
@@ -915,7 +912,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .success,
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
                                                   .titleSmall
@@ -1001,7 +998,7 @@ class _UsefulContactsPageWidgetState extends State<UsefulContactsPageWidget> {
                                                           0.0, 0.0, 6.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .success,
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
                                                   .titleSmall
