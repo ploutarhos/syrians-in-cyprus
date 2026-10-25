@@ -351,7 +351,129 @@ class _ResourcePageWidgetState extends State<ResourcePageWidget> {
                                       ),
                                     ),
                                   ),
+                                354
+                                if (resourcePageResourcesRow?.getField<String>(
+                                            'audio_download_url_1') !=
+                                        null &&
+                                    resourcePageResourcesRow?.getField<String>(
+                                            'audio_download_url_1') !=
+                                        '')
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 10.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        await launchURL(resourcePageResourcesRow!
+                                            .getField<String>(
+                                                'audio_download_url_1')!);
+                                      },
+                                      text: FFLocalizations.of(context)
+                                                  .languageCode ==
+                                              'ar'
+                                          ? 'تحميل التسجيلات 01–50'
+                                          : 'Download Audio 01–50',
+                                      options: FFButtonOptions(
+                                        width: 220.0,
+                                        height: 40.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 0.0, 16.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .success,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              font: GoogleFonts.interTight(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
+                                              color: Colors.white,
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                            ),
+                                        elevation: 0.0,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  ),
+                                if (resourcePageResourcesRow?.getField<String>(
+                                            'audio_download_url_2') !=
+                                        null &&
+                                    resourcePageResourcesRow?.getField<String>(
+                                            'audio_download_url_2') !=
+                                        '')
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 10.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        await launchURL(resourcePageResourcesRow!
+                                            .getField<String>(
+                                                'audio_download_url_2')!);
+                                      },
+                                      text: FFLocalizations.of(context)
+                                                  .languageCode ==
+                                              'ar'
+                                          ? 'تحميل التسجيلات 51–100'
+                                          : 'Download Audio 51–100',
+                                      options: FFButtonOptions(
+                                        width: 220.0,
+                                        height: 40.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 0.0, 16.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .success,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              font: GoogleFonts.interTight(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
+                                              color: Colors.white,
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                            ),
+                                        elevation: 0.0,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  ),
                                 if ((resourcePageResourcesRow?.externalUrl !=
+                                
                                             null &&
                                         resourcePageResourcesRow?.externalUrl !=
                                             '') ||
