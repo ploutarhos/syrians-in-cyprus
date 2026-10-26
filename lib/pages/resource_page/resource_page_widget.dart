@@ -29,11 +29,43 @@ class _ResourcePageWidgetState extends State<ResourcePageWidget> {
   late ResourcePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late final Future<List<Map<String, dynamic>>> _sourceLinksFuture;
+
+  Future<List<Map<String, dynamic>>> _loadSourceLinks() async {
+    final resourceId = widget.resourceId;
+    if (resourceId == null || resourceId.isEmpty) {
+      return <Map<String, dynamic>>[];
+    }
+    final rows = await SupaFlow.client
+        .from('resource_links')
+        .select('label_en, label_ar, url')
+        .eq('resource_id', resourceId)
+        .eq('is_active', true)
+        .order('sort_order');
+    return List<Map<String, dynamic>>.from(rows);
+  }
+
+  // The old Android release still needs the inline URLs until users update.
+  // In the updated app, show the separately labelled source buttons instead.
+  String _articleBody(String? value, String? slug) {
+    final body = value ?? '';
+    if (slug != 'official-visa-requirements-syrians-cyprus') {
+      return body;
+    }
+    for (final marker in ['\nOfficial sources:', '\nالمصادر الرسمية:']) {
+      final index = body.lastIndexOf(marker);
+      if (index >= 0) {
+        return body.substring(0, index).trimRight();
+      }
+    }
+    return body;
+  }
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ResourcePageModel());
+    _sourceLinksFuture = _loadSourceLinks();
   }
 
   @override
@@ -141,11 +173,11 @@ class _ResourcePageWidgetState extends State<ResourcePageWidget> {
                     children: [
                       if (resourcePageResourcesRow?.resourceType != 'template')
                         Text(
-                          valueOrDefault<String>(
+                          _articleBody(
                             FFLocalizations.of(context).languageCode == 'ar'
                                 ? resourcePageResourcesRow?.bodyAr
                                 : resourcePageResourcesRow?.bodyEn,
-                            'المعلومات غير متوفرة حالياً',
+                            resourcePageResourcesRow?.slug,
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -172,14 +204,7 @@ class _ResourcePageWidgetState extends State<ResourcePageWidget> {
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         decoration: BoxDecoration(),
                         child: Visibility(
-                          visible: (resourcePageResourcesRow?.resourceType ==
-                                  'template') ||
-                              (resourcePageResourcesRow?.officialSourceUrl !=
-                                      null &&
-                                  resourcePageResourcesRow?.officialSourceUrl !=
-                                      '') ||
-                              (resourcePageResourcesRow?.externalUrl != null &&
-                                  resourcePageResourcesRow?.externalUrl != ''),
+                          visible: true,
                           child: SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -472,47 +497,117 @@ class _ResourcePageWidgetState extends State<ResourcePageWidget> {
                                       ),
                                     ),
                                   ),
-                                if ((resourcePageResourcesRow?.externalUrl !=
-                                
-                                            null &&
-                                        resourcePageResourcesRow?.externalUrl !=
-                                            '') ||
-                                    (resourcePageResourcesRow
-                                                ?.officialSourceUrl !=
-                                            null &&
-                                        resourcePageResourcesRow
-                                                ?.officialSourceUrl !=
-                                            ''))
-                                  FFButtonWidget(
-                                    onPressed: () async {
-                                      await launchURL(resourcePageResourcesRow
-                                                      ?.officialSourceUrl !=
-                                                  null &&
-                                              resourcePageResourcesRow
-                                                      ?.officialSourceUrl !=
-                                                  ''
-                                          ? resourcePageResourcesRow!
-                                              .officialSourceUrl!
-                                          : resourcePageResourcesRow!
-                                              .externalUrl!);
-                                    },
-                                    text: FFLocalizations.of(context).getText(
-                                      'c28q4i0h' /* فتح المصدر الرسمي */,
-                                    ),
-                                    options: FFButtonOptions(
-                                      width: 180.0,
-                                      height: 40.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 0.0, 16.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color: FlutterFlowTheme.of(context)
+                                FutureBuilder<List<Map<String, dynamic>>>(
+                                  future: _sourceLinksFuture,
+                                  builder: (context, linksSnapshot) {
+                                    if (!linksSnapshot.hasData &&
+                                        !linksSnapshot.hasError) {
+                                      return const SizedBox.shrink();
+                                    }
+
+                                    final links = linksSnapshot.data ??
+                                        <Map<String, dynamic>>[];
+                                    if (links.isNotEmpty) {
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: links.map((link) {
+                                          final url = (link['url'] ?? '').toString();
+                                          final label = (FFLocalizations.of(context)
+                                                      .languageCode == 'ar'
+                                                  ? link['label_ar']
+                                                  : link['label_en'])
+                                              ?.toString() ?? '';
+                                          return Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 10.0),
+                                            child: SizedBox(
+                                              width: double.infinity,
+                                              child: ElevatedButton.icon(
+                                                onPressed: url.isEmpty
+                                                    ? null
+                                                    : () async {
+                                                        await launchURL(url);
+                                                      },
+                                                icon: const Icon(
+                                                  Icons.open_in_new,
+                                                  size: 18.0,
+                                                ),
+                                                label: Text(
+                                                  label,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(context)
+                                                          .success,
+                                                  foregroundColor: Colors.white,
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                          horizontal: 12.0,
+                                                          vertical: 13.0),
+                                                  minimumSize:
+                                                      const Size.fromHeight(
+                                                          48.0),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }).toList(),
+                                      );
+                                    }
+
+                                    final sourceUrl = (resourcePageResourcesRow
+                                                    ?.officialSourceUrl
+                                                    ?.isNotEmpty ??
+                                                false)
+                                        ? resourcePageResourcesRow!
+                                            .officialSourceUrl!
+                                        : (resourcePageResourcesRow
+                                                ?.externalUrl ??
+                                            '');
+                                    if (sourceUrl.isEmpty) {
+                                      return const SizedBox.shrink();
+                                    }
+
+                                    return FFButtonWidget(
+                                      onPressed: () async {
+                                        await launchURL(sourceUrl);
+                                      },
+                                      text:
+                                          FFLocalizations.of(context).getText(
+                                        'c28q4i0h' /* فتح المصدر الرسمي */,
+                                      ),
+                                      options: FFButtonOptions(
+                                        width: 180.0,
+                                        height: 40.0,
+                                        padding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                16.0, 0.0, 16.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
                                             .success,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            font: GoogleFonts.interTight(
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              font: GoogleFonts.interTight(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
+                                              color: Colors.white,
+                                              letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -522,21 +617,13 @@ class _ResourcePageWidgetState extends State<ResourcePageWidget> {
                                                       .titleSmall
                                                       .fontStyle,
                                             ),
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .fontStyle,
-                                          ),
-                                      elevation: 0.0,
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ),
+                                        elevation: 0.0,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ],
                             ),
                           ),
