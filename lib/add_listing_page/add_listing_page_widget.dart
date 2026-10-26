@@ -4470,6 +4470,19 @@ class _AddListingPageWidgetState extends State<AddListingPageWidget> {
                                   : 'Read Marketplace Rules',
                             ),
                           ),
+                          TextButton.icon(
+                            onPressed: () async {
+                              await launchURL(
+                                'https://ploutarhos.github.io/syrians-in-cyprus/privacy.html',
+                              );
+                            },
+                            icon: const Icon(Icons.privacy_tip_outlined),
+                            label: Text(
+                              FFLocalizations.of(context).languageCode == 'ar'
+                                  ? 'قراءة سياسة الخصوصية'
+                                  : 'Read Privacy Policy',
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -4726,6 +4739,19 @@ class _AddListingPageWidgetState extends State<AddListingPageWidget> {
                               FFLocalizations.of(context).languageCode == 'ar'
                                   ? 'قراءة قواعد السوق'
                                   : 'Read Marketplace Rules',
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () async {
+                              await launchURL(
+                                'https://ploutarhos.github.io/syrians-in-cyprus/privacy.html',
+                              );
+                            },
+                            icon: const Icon(Icons.privacy_tip_outlined),
+                            label: Text(
+                              FFLocalizations.of(context).languageCode == 'ar'
+                                  ? 'قراءة سياسة الخصوصية'
+                                  : 'Read Privacy Policy',
                             ),
                           ),
                         ],
@@ -5000,6 +5026,19 @@ class _AddListingPageWidgetState extends State<AddListingPageWidget> {
                               FFLocalizations.of(context).languageCode == 'ar'
                                   ? 'قراءة قواعد السوق'
                                   : 'Read Marketplace Rules',
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () async {
+                              await launchURL(
+                                'https://ploutarhos.github.io/syrians-in-cyprus/privacy.html',
+                              );
+                            },
+                            icon: const Icon(Icons.privacy_tip_outlined),
+                            label: Text(
+                              FFLocalizations.of(context).languageCode == 'ar'
+                                  ? 'قراءة سياسة الخصوصية'
+                                  : 'Read Privacy Policy',
                             ),
                           ),
                         ],
