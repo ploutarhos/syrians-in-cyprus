@@ -3,10 +3,12 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'resource_page_model.dart';
 export 'resource_page_model.dart';
 
@@ -130,7 +132,26 @@ class _ResourcePageWidgetState extends State<ResourcePageWidget> {
                   size: 30.0,
                 ),
                 onPressed: () async {
-                  context.pop();
+                  if (context.canPop()) {
+                    context.pop();
+                  } else if (resourcePageResourcesRow?.categoryId != null &&
+                      resourcePageResourcesRow!.categoryId!.isNotEmpty) {
+                    context.goNamed(
+                      CategoryPageWidget.routeName,
+                      queryParameters: {
+                        'categoryId': serializeParam(
+                          resourcePageResourcesRow.categoryId,
+                          ParamType.String,
+                        ),
+                        'categorySlug': serializeParam(
+                          '',
+                          ParamType.String,
+                        ),
+                      }.withoutNulls,
+                    );
+                  } else {
+                    context.go('/');
+                  }
                 },
               ),
               title: Text(
@@ -159,7 +180,44 @@ class _ResourcePageWidgetState extends State<ResourcePageWidget> {
                           FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                     ),
               ),
-              actions: [],
+              actions: [
+                Builder(
+                  builder: (shareContext) => IconButton(
+                    tooltip: FFLocalizations.of(context).languageCode == 'ar'
+                        ? 'مشاركة المقال'
+                        : 'Share article',
+                    icon: const Icon(
+                      Icons.share,
+                      color: Colors.white,
+                    ),
+                    onPressed: () async {
+                      final resourceId = widget.resourceId;
+                      if (resourceId == null || resourceId.isEmpty) {
+                        return;
+                      }
+                      final isArabic =
+                          FFLocalizations.of(context).languageCode == 'ar';
+                      final title = isArabic
+                          ? resourcePageResourcesRow?.titleAr ?? ''
+                          : resourcePageResourcesRow?.titleEn ?? '';
+                      final shareUrl =
+                          'https://ploutarhos.github.io/syrians-in-cyprus/#/resourcePage?resourceId=' +
+                              Uri.encodeQueryComponent(resourceId);
+                      await Share.share(
+                        (isArabic
+                                ? 'اقرأ هذا المقال في تطبيق السوريين في قبرص'
+                                : 'Read this article in the Syrians in Cyprus app') +
+                            '\n\n' +
+                            title +
+                            '\n\n' +
+                            shareUrl,
+                        sharePositionOrigin:
+                            getWidgetBoundingBox(shareContext),
+                      );
+                    },
+                  ),
+                ),
+              ],
               centerTitle: false,
               elevation: 2.0,
             ),
@@ -376,7 +434,6 @@ class _ResourcePageWidgetState extends State<ResourcePageWidget> {
                                       ),
                                     ),
                                   ),
-
                                 if (resourcePageResourcesRow?.getField<String>(
                                             'audio_download_url_1') !=
                                         null &&
