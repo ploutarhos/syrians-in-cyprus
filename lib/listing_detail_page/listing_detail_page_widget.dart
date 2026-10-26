@@ -132,6 +132,23 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                         border: const OutlineInputBorder(),
                       ),
                     ),
+                    const SizedBox(height: 8.0),
+                    Align(
+                      alignment: isArabic
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft,
+                      child: TextButton.icon(
+                        onPressed: () async {
+                          await launchURL(
+                            'https://ploutarhos.github.io/syrians-in-cyprus/privacy.html',
+                          );
+                        },
+                        icon: const Icon(Icons.privacy_tip_outlined),
+                        label: Text(
+                          isArabic ? 'سياسة الخصوصية' : 'Privacy Policy',
+                        ),
+                      ),
+                    ),
                     if (errorMessage != null) ...[
                       const SizedBox(height: 8.0),
                       Text(
