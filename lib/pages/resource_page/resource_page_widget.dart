@@ -43,7 +43,7 @@ class _ResourcePageWidgetState extends State<ResourcePageWidget> {
         .select('label_en, label_ar, url')
         .eq('resource_id', resourceId)
         .eq('is_active', true)
-        .order('sort_order');
+        .order('sort_order', ascending: true);
     return List<Map<String, dynamic>>.from(rows);
   }
 
